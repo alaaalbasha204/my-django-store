@@ -1,0 +1,94 @@
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+{% if messages %}
+  <div class="notification-wrapper">
+    {% for message in messages %}
+      <div class="notification {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% if request.user.is_staff %}
+  <nav class="admin-nav">
+    <a href="/admin/">لوحة الإدارة ⚙️</a>
+  </nav>
+{% endif %}
+
+<div class="container">
+
+ <header class="topbar">
+  <a href="{% url 'cart' %}" class="cart-btn" aria-label="عربة التسوق">
+    <span class="cart-emoji">🛍️</span>
+    <span class="cart-text">السلة</span>
+    <!-- <span class="cart-count">{{ request.session.cart|length }}</span> -->
+  </a>
+
+  <form class="search-form" method="get" action="{% url 'index' %}">
+    <input type="search" name="q" placeholder="ابحث عن منتج..." value="{{ search_query }}" aria-label="بحث">
+    <button type="submit">بحث</button>
+  </form>
+
+  <a href="#" class="store-name">متجرنا الإلكتروني 🛒</a>
+</header>
+
+
+
+  <section class="main-content">
+    <nav class="category-menu">
+      <h3>التصنيفات</h3>
+      <form method="post" action="">
+        {% csrf_token %}
+        <label><input type="submit" name="category" value="clothes"> ملابس 👗</label>
+        <label><input type="submit" name="category" value="food"> طعام 🍕</label>
+        <label><input type="submit" name="category" value="kitchin"> مطبخ 🍴</label>
+         <label><input type="submit" name="category" value="elctronic"> الكترونيات 💻</label>
+      </form>
+    </nav>
+
+    <div class="products-grid">
+      {% if products %}
+        {% for product in products %}
+          <article class="product-item" tabindex="0">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+            <h4>{{ product.name }}</h4>
+            <p class="price">السعر: {{ product.price }} $</p>
+
+            <form method="post" action="" class="btn-group">
+              {% csrf_token %}
+              <input type="hidden" name="product" value="{{ product.id }}">
+              <button class="btn add-btn" type="submit">إضافة 🛒</button>
+            </form>
+
+            {% if product.id in cart_product_ids %}
+              <form method="post" action="" class="btn-group">
+                {% csrf_token %}
+                <input type="hidden" name="product" value="{{ product.id }}">
+                <input type="hidden" name="remove" value="1">
+                <button class="btn remove-btn" type="submit">إزالة ❌</button>
+              </form>
+            {% endif %}
+
+            <a href="{% url 'detail' product.id %}" class="detail-link">تفاصيل 🔍</a>
+          </article>
+        {% endfor %}
+      {% else %}
+        <p class="no-products">لم يتم العثور على منتجات.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <footer class="cart-summary">
+    <h3>محتويات السلة</h3>
+    <ul>
+      {% for product_id, quantity in request.session.cart.items %}
+        <li>المنتج رقم {{ product_id }} - الكمية: {{ quantity }}</li>
+      {% empty %}
+        <li>السلة فارغة.</li>
+      {% endfor %}
+    </ul>
+  </footer>
+
+</div>
+{% endblock %}

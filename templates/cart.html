@@ -1,0 +1,57 @@
+
+
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+<nav class="navbar">
+  <div class="nav-left">
+
+    <a href="{% url 'login' %}" class="nav-link">تسجيل الدخول</a>
+    <a href="{% url 'signup' %}" class="nav-link">إنشاء حساب</a>
+  </div>
+
+  <div class="nav-right">
+    <h1 class="cart-title">سلة التسوق الخاصة بك 🛒</h1>
+  </div>
+</nav>
+
+
+  {% if cart_items %}
+    <div class="cart-list">
+      {% for item in cart_items %}
+        <div class="cart-item">
+          <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+          <div class="item-details">
+            <h3>{{ item.product.name }}</h3>
+            <p>السعر: ${{ item.product.price }}</p>
+            <p>الكمية: {{ item.quantity }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- <form method="POST" action="{% url 'saveOrder' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-checkout">تأكيد الطلب</button>
+    </form> -->
+
+    <div class="cart-total">
+      <h2>الإجمالي: ${{ total }}</h2>
+    </div>
+  {% else %}
+    <p class="empty-message">سلة التسوق فارغة حالياً.</p>
+  {% endif %}
+
+  <a href="{% url 'index' %}" class="back-btn">← العودة إلى المتجر</a>
+</div>
+
+{% endblock %}

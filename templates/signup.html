@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>إنشاء حساب</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+<body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <nav class="navbar">
+        <a href="{% url 'index' %}">الرئيسية</a>
+        <a href="{% url 'cart' %}">السلة</a>
+        <a href="{% url 'signup' %}">إنشاء حساب</a>
+    </nav>
+
+    <div class="signup-container">
+        <form method="post">
+            <h2>إنشاء حساب جديد</h2>
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            {% if form.errors %}
+                <ul class="errorlist">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <button type="submit">تسجيل</button>
+
+            <div class="login-link">
+                لديك حساب؟ <a href="{% url 'login' %}">تسجيل الدخول</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

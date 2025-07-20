@@ -1,0 +1,58 @@
+
+{% block title %}Choose Payment Method{% endblock %}
+
+{% block content %}
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<div class="container">
+    <h2>Choose a Payment Method</h2>
+
+    <p>Please select your preferred method of payment to proceed with the checkout.</p>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <div>
+            <label>
+                <input type="radio" name="payment_method" value="credit_card" required>
+                Credit Card
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="radio" name="payment_method" value="paypal">
+                PayPal
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="radio" name="payment_method" value="cod">
+                Cash on Delivery
+            </label>
+        </div>
+        <br>
+        <a href="   {% url  'saveOrder' %} ">pay</a>
+    </form>
+
+    <br>
+    <a href="{% url 'cart' %}">← Back to Cart</a>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
