@@ -39,10 +39,10 @@
       {% endfor %}
     </div>
 
-    <!-- <form method="POST" action="{% url 'saveOrder' %}">
+    <form method="POST" action="{% url 'saveOrder' %}">
       {% csrf_token %}
       <button type="submit" class="btn-checkout">تأكيد الطلب</button>
-    </form> -->
+    </form>
 
     <div class="cart-total">
       <h2>الإجمالي: ${{ total }}</h2>

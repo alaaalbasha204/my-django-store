@@ -13,17 +13,17 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG =  config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-
+#ALLOWED_HOSTS= ['alaaalbasha.pythonanywhere.com']
 # Application definition
-AUTHENTICATION_BACKENDS = [
-    'axes.backends.AxesBackend',  # يجب أن يكون أولاً
-    'django.contrib.auth.backends.ModelBackend',
-]
+# AUTHENTICATION_BACKENDS = [
+#     'axes.backends.AxesBackend',  # يجب أن يكون أولاً
+#     'django.contrib.auth.backends.ModelBackend',
+# ]
 
-# حظر الحساب بعد 5 محاولات فاشلة
-AXES_FAILURE_LIMIT = 5
-# مدة الحظر (مثلاً: ساعتين)
-AXES_COOLOFF_TIME = 2 
+# # حظر الحساب بعد 5 محاولات فاشلة
+# AXES_FAILURE_LIMIT = 5
+# # مدة الحظر (مثلاً: ساعتين)
+# AXES_COOLOFF_TIME = 2
 
 # إرسال التنبيهات إلى الـ logging
 #AXES_ENABLED = True
@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mystore',
-    'axes',
+    #'axes',
 ]
 
 MIDDLEWARE = [
@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'axes.middleware.AxesMiddleware',
+    #'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -54,7 +54,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'C:\Users\alaaa\Desktop\STORE\project\templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,6 +118,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[
     BASE_DIR / 'static'
 ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
