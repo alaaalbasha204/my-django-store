@@ -2,12 +2,14 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-
+# from .models import Customer
 class SignUpForm(forms.ModelForm):
     
     #لا تُحفظ مباشرة
     password = forms.CharField(widget=forms.PasswordInput, validators=[validate_password])
     confirm_password = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+    phone = forms.CharField(max_length=15, label="Phone")
+    address = forms.CharField(max_length=255, label="Address")
 
     class Meta:
         model = User

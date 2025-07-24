@@ -16,6 +16,7 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django_ratelimit.decorators import ratelimit
 from django.db.models import Q 
+from .models import Customer
 from django.views.decorators.csrf import csrf_protect
 from django.utils.html import escape
 def ratelimit_exceeded_view(request, exception=None):
@@ -149,6 +150,11 @@ def signup(request):
             user=form.save()
             user.set_password(form.cleaned_data['password'])  
             user.save()
+            Customer.objects.create(
+                user=user,
+                phone=form.cleaned_data['phone'],
+                address=form.cleaned_data['address']
+            )
             messages.success(request, "✅ تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.")
             return redirect('cart') 
         else :

@@ -1,7 +1,8 @@
 
 
 from django.contrib import admin
-from .models import Category, Product, Order, OrderItem
+from .models import Category, Product, Order, OrderItem ,Customer
+admin.site.register(Customer)
 admin.site.site_header='ALBAHSA CONTROL'
 admin.site.site_title='CONTROL PAGE'
 # هذا الكلاس يعرض المنتجات المرتبطة بالطلبية في صفحة الطلب
