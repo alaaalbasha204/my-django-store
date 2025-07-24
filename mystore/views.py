@@ -2,7 +2,7 @@ from pyexpat.errors import messages
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render ,redirect
-from .models import Category,Product,Order,OrderItem
+from .models import Category,Product,Order,OrderItem,Customer
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
@@ -263,11 +263,14 @@ def saveOrder(request):
     # ✅ تجهيز رسالة واحدة شاملة
     BOT_TOKEN = config('BOT_TOKEN')
     CHAT_ID = config('CHAT_ID')
+    customer=Customer.objects.get(user=user)
 
     message = (
         f"🛒 طلب جديد من المستخدم: {escape(user.username)}\n\n"
         + "\n".join(order_lines) +
         f"\n\n💰 المجموع الكلي: {total_price_order} دينار"
+        +f"\n \n 🏠 العنوان :{customer.address}"
+        +f"\n \n  📞 الهاتف :{customer.phone}"
     )
 
     send_telegram_message(BOT_TOKEN, CHAT_ID, message)
