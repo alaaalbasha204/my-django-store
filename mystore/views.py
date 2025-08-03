@@ -19,18 +19,38 @@ from django.db.models import Q
 from .models import Customer
 from django.views.decorators.csrf import csrf_protect
 from django.utils.html import escape
-def ratelimit_exceeded_view(request, exception=None):
-    return JsonResponse(
-        {'error': '📛 تم تجاوز الحد المسموح به من الطلبات. الرجاء الانتظار قليلاً والمحاولة مجددًا.'},
-        status=429
-    )
+from django.core.cache import cache
+# def ratelimit_exceeded_view(request, exception=None):
+#     return JsonResponse(
+#         {'error': '📛 تم تجاوز الحد المسموح به من الطلبات. الرجاء الانتظار قليلاً والمحاولة مجددًا.'},
+#         status=429
+#     )
 @method_decorator(ratelimit(key='ip', rate='20/m', method='POST', block=True), name='dispatch')
 class IndexView(View):
+
     valid_categories = ['clothes', 'food', 'kitchin','elctronic']
 
+    def get_all_products_cached(self):
+        """جلب المنتجات من الكاش أو من قاعدة البيانات"""
+        products = cache.get('all_products')
+        if products is None:
+            products = list(Product.objects.all())
+            cache.set('all_products', products, 60)  # نخزنها 60 ثانية
+        return products
+    
+    def get_category_products_cached(self, category):
+      cache_key = f'category_products_{category}'
+      products = cache.get(cache_key)
+      if products is None:
+        products = list(Product.objects.filter(category__name=category))
+        cache.set(cache_key, products, 60)  # نخزنها 60 ثانية
+      return products
+
     def get(self, request):
+
         query = request.GET.get('q')
-        products = Product.objects.all()
+        products = self.get_all_products_cached()
+
         if query:
             products = products.filter(
                 Q(name__icontains=query) | Q(description__icontains=query)
@@ -53,7 +73,7 @@ class IndexView(View):
 
         if category:
             if category in self.valid_categories:
-                products = Product.objects.filter(category__name=category)
+                products = self.get_category_products_cached(category)
                 return render(request, 'index.html', {'products': products})
             else:
                 messages.error(request, "❌ هذا الصنف غير متوفر.")
