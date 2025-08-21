@@ -1,193 +1,180 @@
-.cart-container {
-  max-width: 1300px;
-  margin: 40px auto;
-  padding: 30px 40px;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 12px 25px rgba(27, 73, 101, 0.15);
-}
-
-.cart-container h1 {
-  font-size: 36px;
-  margin-bottom: 30px;
-  color: #1b4965;
-  font-weight: 700;
-}
-
-.cart-list {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.cart-item {
-  display: flex;
-  gap: 25px;
-  background: #f0f8ff;
-  padding: 20px 25px;
-  border-radius: 15px;
-  align-items: center;
-  box-shadow: inset 0 0 15px #c7d8f6;
-}
-
-.cart-item img {
-  width: 130px;
-  height: auto;
-  border-radius: 12px;
-  object-fit: contain;
-  background-color: #ffffff;
-  box-shadow: 0 2px 6px rgba(27, 73, 101, 0.1);
-}
-
-.item-details {
-  flex: 1;
-}
-
-.item-details h3 {
-  margin: 0 0 12px;
-  font-size: 22px;
-  color: #1b4965;
-  font-weight: 700;
-}
-
-.item-details p {
-  margin: 6px 0;
-  color: #334e68;
-  font-size: 17px;
-}
-
-.cart-total {
-  margin-top: 40px;
-  text-align: right;
-}
-
-.cart-total h2 {
-  font-size: 28px;
-  color: #ff7f50;
-  margin-bottom: 15px;
-  font-weight: 700;
-}
-
-.btn-checkout {
-  background: #1b4965;
-  color: white;
-  padding: 14px 28px;
-  font-size: 18px;
-  border: none;
-  border-radius: 15px;
-  text-decoration: none;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: inline-block;
-  margin-top: 15px;
-  max-width: 200px;
-  text-align: center;
-}
-
-.btn-checkout:hover {
-  background: #14475b;
-}
-
-.empty-message {
-  font-size: 22px;
-  text-align: center;
-  margin: 60px 0;
-  color: #777;
-}
-
-.back-btn {
-  display: inline-block;
-  margin-top: 30px;
-  text-decoration: none;
-  color: #1b4965;
-  font-weight: 700;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-.back-btn:hover {
-  color: #ff7f50;
-  text-decoration: underline;
-}
-
-ul.messages {
-  list-style: none;
-  padding: 10px 20px;
-  max-width: 1300px;
-  margin: 0 auto 25px auto;
-}
-
-.messages li {
-  padding: 12px 20px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  font-weight: 600;
-}
-
-.messages li.success { background-color: #d4edda; color: #155724; }
-.messages li.error { background-color: #f8d7da; color: #721c24; }
-.messages li.warning { background-color: #fff3cd; color: #856404; }
-.messages li.info { background-color: #cce5ff; color: #004085; }
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #1b4965;
-  padding: 15px 40px;
-  border-radius: 0 0 15px 15px;
-  box-shadow: 0 12px 25px rgba(27, 73, 101, 0.15);
-  margin-bottom: 40px;
-}
-
-.nav-left .logo {
-  font-size: 28px;
-  font-weight: 700;
-  color: white;
-  text-decoration: none;
-  user-select: none;
-}
-
-.nav-right {
-  display: flex;
-  gap: 25px;
-}
-
-.nav-link {
-  color: #ff7f50;
-  font-size: 18px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.nav-link:hover {
-  color: #ffc3a0;
-  text-decoration: underline;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #1b4965;
-  padding: 15px 40px;
-  border-radius: 0 0 15px 15px;
-  box-shadow: 0 12px 25px rgba(27, 73, 101, 0.15);
-  margin-bottom: 40px;
-  flex-wrap: wrap;
-}
-
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
-
-.cart-title {
-  font-size: 24px;
-  color: white;
+/* Reset */
+* {
   margin: 0;
-  font-weight: 700;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cairo", sans-serif;
+}
+
+body {
+  background: #f5f3ef;
+  color: #333;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1b4965;
+  display: flex;
+  align-items: center;
+}
+
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+}
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+nav a:hover {
+  color: #1b4965;
+}
+
+/* Cart */
+.cart-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.cart-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 800px;
+}
+
+.cart-box h2 {
+  text-align: center;
+  color: #1b4965;
+  margin-bottom: 1.5rem;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+.cart-table th, .cart-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+.cart-table th {
+  background: #f0f4f8;
+  color: #1b4965;
+}
+.cart-total {
+  text-align: center;   /* وسط الصفحة */
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.checkout-btn {
+  display: inline-block;
+  background: #1b4965;
+  color: #fff;
+  padding: 0.6rem 1rem;   /* أصغر */
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;     /* حجم خط أصغر */
+  transition: 0.3s;
+}
+
+.checkout-btn:hover {
+  background: #133c55;
+  transform: scale(1.05); /* تكبير خفيف عند المرور */
+}
+
+.checkout-btn:hover {
+  background: #133c55;
+}
+
+.empty {
+  text-align: center;
+  color: #777;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cart-table thead {
+    display: none;
+  }
+  .cart-table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 0.8rem;
+    background: #fafafa;
+  }
+  .cart-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border: none;
+  }
+  .cart-total {
+    text-align: center;
+  }
+}
+
+
+
+
+
+
+.checkout-wrapper {
+  display: flex;
+  justify-content: center;   /* يخلي الزر في المنتصف */
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.checkout-btn {
+  background: #1b4965;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.checkout-btn:hover {
+  background: #133c55;
+  transform: translateY(-2px);
+}
+
+.checkout-btn:active {
+  transform: translateY(0);
+}
+
+/* للهواتف */
+@media (max-width: 768px) {
+  .checkout-btn {
+    width: 90%;       /* يخلي الزر كبير نسبياً على الموبايل */
+    text-align: center;
+    font-size: 1.1rem;
+  }
 }

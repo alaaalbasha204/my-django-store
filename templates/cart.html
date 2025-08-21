@@ -1,57 +1,62 @@
-
-
-
 {% load static %}
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+</head>
+<body>
+  <header>
+    <div class="logo"> 🛒ShopCart</div>
+    <nav>
+         <a href="/">🏠Home</a>
+       <a href="{% url 'signup' %}">👤Account</a>
+   
+    
+    </nav>
+  </header>
 
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li class="{{ message.tags }}">{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
-<nav class="navbar">
-  <div class="nav-left">
+  <main class="cart-container">
+    <div class="cart-box">
+      <h2>🛒 Shopping Cart</h2>
 
-    <a href="{% url 'login' %}" class="nav-link">تسجيل الدخول</a>
-    <a href="{% url 'signup' %}" class="nav-link">إنشاء حساب</a>
-  </div>
+      {% if cart_items %}
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cart_items %}
+            <tr>
+              <td>{{ item.product.name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.product.price }} $</td>
+              <td>{{ item.product.price|floatformat:2 }} × {{ item.quantity }} = {{ item.product.price|floatformat:2|add:"0"|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
-  <div class="nav-right">
-    <h1 class="cart-title">سلة التسوق الخاصة بك 🛒</h1>
-  </div>
-</nav>
-
-
-  {% if cart_items %}
-    <div class="cart-list">
-      {% for item in cart_items %}
-        <div class="cart-item">
-          <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
-          <div class="item-details">
-            <h3>{{ item.product.name }}</h3>
-            <p>السعر: ${{ item.product.price }}</p>
-            <p>الكمية: {{ item.quantity }}</p>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-
-    <form method="POST" action="{% url 'saveOrder' %}">
-      {% csrf_token %}
-      <button type="submit" class="btn-checkout">تأكيد الطلب</button>
-    </form>
-
-    <div class="cart-total">
-      <h2>الإجمالي: ${{ total }}</h2>
-    </div>
-  {% else %}
-    <p class="empty-message">سلة التسوق فارغة حالياً.</p>
-  {% endif %}
-
-  <a href="{% url 'index' %}" class="back-btn">← العودة إلى المتجر</a>
+        <div class="cart-total">
+          <p><strong>Grand Total:</strong> {{ total }} $</p>
+    <div class="checkout-wrapper">
+    <a href="{% url 'saveOrder' %}" class="checkout-btn">
+        Proceed to Checkout
+    </a>
 </div>
 
-{% endblock %}
+        </div>
+      {% else %}
+        <p class="empty">Your cart is empty 🚀</p>
+      {% endif %}
+    </div>
+  </main>
+</body>
+</html>

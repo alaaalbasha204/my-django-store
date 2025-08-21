@@ -1,44 +1,61 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>تسجيل الدخول</title>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <meta charset="UTF-8">
+  <title>Signup - Shopcart</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">🛒 Shopcart</div>
+    <!-- <nav>
+      <div class="dropdown">
+        <a href="#">      </a>
+        <div class="dropdown-content">
+          <a href="?category=clothes">Clothes</a>
+          <a href="?category=food">Food</a>
+          <a href="?category=kitchin">Kitchen</a>
+          <a href="?category=elctronic">Electronic</a>
+        </div>
+      </div>  
+      <a href="#">  Deals  </a>
+      <a href="#">  What's New  </a>
+      <a href="#">  Delivery  </a>
+    </nav> -->
+
+    <!-- Notifications -->
     {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
+      <div class="notification-wrapper">
+        {% for message in messages %}
+          <div class="notification {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
     {% endif %}
 
-    <nav class="navbar">
-        <a href="{% url 'index' %}">الرئيسية</a>
-        <a href="{% url 'cart' %}">السلة</a>
-        <a href="{% url 'signup' %}">إنشاء حساب</a>
-    </nav>
-
-    <div class="login-container">
-        <h2>تسجيل الدخول</h2>
-        {% if error %}
-            <div class="error">{{ error }}</div>
-        {% endif %}
-        <form method="POST" novalidate>
-            {% csrf_token %}
-            <div class="form-group">
-                {{ form.username.label_tag }}
-                {{ form.username }}
-            </div>
-            <div class="form-group">
-                {{ form.password.label_tag }}
-                {{ form.password }}
-            </div>
-            <button type="submit">دخول</button>
-        </form>
+    <div class="actions">
+      <!-- <input type="text" placeholder="Search Product"> -->
+         <a href="{% url 'index' %}">🏠Home</a>
+      <a href="{% url 'signup' %}">👤Account</a>
+      <a href="{% url 'cart' %}">🛒Cart</a>
     </div>
+  </header>
+  <section class="signup-container">
+    <div class="signup-box">
+      <h2>Create Account</h2>
+      <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+     
+        <input type="password" name="password" placeholder="Password" required>
+        
+        <button type="submit">Signup</button>
+      </form>
+    <p>Don't have an account? <a href="{% url 'signup' %}">Signup</a></p>
+    </div>
+  </section>
 </body>
 </html>

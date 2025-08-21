@@ -1,94 +1,110 @@
 {% load static %}
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopcart - Product Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
 
-{% if messages %}
-  <div class="notification-wrapper">
-    {% for message in messages %}
-      <div class="notification {{ message.tags }}">{{ message }}</div>
-    {% endfor %}
-  </div>
-{% endif %}
-
-{% if request.user.is_staff %}
-  <nav class="admin-nav">
-    <a href="/admin/"> بعد التعديل لوحة الإدارة ⚙️</a>
-  </nav>
-{% endif %}
-<!-- 02204110440938447200Alaa@ -->
-<div class="container">
-
- <header class="topbar">
-  <a href="{% url 'cart' %}" class="cart-btn" aria-label="عربة التسوق">
-    <span class="cart-emoji">🛍️</span>
-    <span class="cart-text">السلة</span>
-    <!-- <span class="cart-count">{{ request.session.cart|length }}</span> -->
-  </a>
-
-  <!-- <form class="search-form" method="get" action="{% url 'index' %}">
-    <input type="search" name="q" placeholder="ابحث عن منتج..." value="{{ search_query }}" aria-label="بحث">
-    <button type="submit">بحث</button>
-  </form> -->
-
-  <a href="#" class="store-name">متجرنا الإلكتروني 🛒</a>
-</header>
-
-
-
-  <section class="main-content">
-    <nav class="category-menu">
-      <h3>التصنيفات</h3>
-      <form method="post" action="">
-        {% csrf_token %}
-        <label><input type="submit" name="category" value="clothes"> ملابس 👗</label>
-        <label><input type="submit" name="category" value="food"> طعام 🍕</label>
-        <label><input type="submit" name="category" value="kitchin"> مطبخ 🍴</label>
-         <label><input type="submit" name="category" value="elctronic"> الكترونيات 💻</label>
-      </form>
-    </nav>
-
-    <div class="products-grid">
-      {% if products %}
-        {% for product in products %}
-          <article class="product-item" tabindex="0">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
-            <h4>{{ product.name }}</h4>
-            <p class="price">السعر: {{ product.price }} $</p>
-
-            <form method="post" action="" class="btn-group">
-              {% csrf_token %}
-              <input type="hidden" name="product" value="{{ product.id }}">
-              <button class="btn add-btn" type="submit">إضافة 🛒</button>
-            </form>
-
-            {% if product.id in cart_product_ids %}
-              <form method="post" action="" class="btn-group">
-                {% csrf_token %}
-                <input type="hidden" name="product" value="{{ product.id }}">
-                <input type="hidden" name="remove" value="1">
-                <button class="btn remove-btn" type="submit">إزالة ❌</button>
-              </form>
-            {% endif %}
-
-            <a href="{% url 'detail' product.id %}" class="detail-link">تفاصيل 🔍</a>
-          </article>
-        {% endfor %}
-      {% else %}
-        <p class="no-products">لم يتم العثور على منتجات.</p>
-      {% endif %}
-    </div>
-  </section>
-
-  <footer class="cart-summary">
-    <h3>محتويات السلة</h3>
-    <ul>
-      {% for product_id, quantity in request.session.cart.items %}
-        <li>المنتج رقم {{ product_id }} - الكمية: {{ quantity }}</li>
-      {% empty %}
-        <li>السلة فارغة.</li>
+  <!-- Header -->
+  <header>
+    <div class="logo">🛒 Shopcart</div>
+         {% if messages %}
+    <div class="notification-wrapper">
+      {% for message in messages %}
+        <div class="notification {{ message.tags }}">{{ message }}</div>
       {% endfor %}
-    </ul>
-  </footer>
+    </div>
+  {% endif %}
+  </div>
 
-</div>
-{% endblock %}
+  
+
+  
+
+
+
+
+
+   <nav>
+  <div class="dropdown">
+
+    <a href="#">Categories ▾</a>
+    <div class="dropdown-content">
+      <a href="?category=clothes">Clothes</a>
+      <a href="?category=food">Food</a>
+      <a href="?category=	kitchin">Kitchen</a>
+      <a href="?category=elctronic">Electronic</a>
+    </div>
+    
+  </div>
+
+  <a href="#">Deals</a>
+  <a href="#">What's New</a>
+  
+</nav> 
+</nav>
+
+    
+  <!-- Notifications -->
+ 
+    <div class="actions">
+   
+       <form method="get" action="">
+    <input type="text" name="q" placeholder="Search Product">
+    <button type="submit">🔍</button>
+  </form>
+      <a href="{% url 'signup' %}">👤Account</a>
+      <a href="{% url 'cart' %}">🛒Cart</a>
+   
+    </div>
+  </header>
+ 
+  <section class="products-section">
+
+    {% if products %}
+        {% for category in category %}
+            <section class="category-section">
+                <h3 class="category-title">{{ category.name }} For You</h3>
+                <div class="products-grid">
+                    {% for product in products %}
+                        {% if product.category == category %}
+                            <div class="product-card">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                                <div class="product-name">{{ product.name }}</div>
+                                <div class="product-price">{{ product.price }} $</div>
+
+                                <form method="post" action="" class="btn-group">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product" value="{{ product.id }}">
+                                    <button class="btn add-btn" type="submit">Add 🛒</button>
+                                </form>
+
+                                {% if product.id in cart_product_ids %}
+                                    <form method="post" action="" class="btn-group">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="product" value="{{ product.id }}">
+                                        <input type="hidden" name="remove" value="1">
+                                        <button class="btn remove-btn" type="submit">Delete ❌</button>
+                                    </form>
+                                {% endif %}
+
+                                <a href="{% url 'detail' product.id %}" class="detail-link">Details 🔍</a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+    {% else %}
+        <p class="no-products">No products found.</p>
+    {% endif %}
+
+</section>
+ 
+</body>
+</html>

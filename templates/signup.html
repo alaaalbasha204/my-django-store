@@ -1,51 +1,64 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>إنشاء حساب</title>
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+  <meta charset="UTF-8">
+  <title>Signup - Shopcart</title>
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
 </head>
 <body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">🛒 Shopcart</div>
+    <!-- <nav>
+      <div class="dropdown">
+        <a href="#">Categories ▾</a>
+        <div class="dropdown-content">
+          <a href="?category=clothes">Clothes</a>
+          <a href="?category=food">Food</a>
+          <a href="?category=kitchin">Kitchen</a>
+          <a href="?category=elctronic">Electronic</a>
+        </div>
+      </div>
+      <a href="#">Deals</a>
+      <a href="#">What's New</a>
+      <a href="#">Delivery</a>
+    </nav> -->
+
+    <!-- Notifications -->
     {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
+      <div class="notification-wrapper">
+        {% for message in messages %}
+          <div class="notification {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
     {% endif %}
 
-    <nav class="navbar">
-        <a href="{% url 'index' %}">الرئيسية</a>
-        <a href="{% url 'cart' %}">السلة</a>
-        <a href="{% url 'signup' %}">إنشاء حساب</a>
-    </nav>
-
-    <div class="signup-container">
-        <form method="post">
-            <h2>إنشاء حساب جديد</h2>
-            {% csrf_token %}
-            {{ form.as_p }}
-
-            {% if form.errors %}
-                <ul class="errorlist">
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <li>{{ field.label }}: {{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
-            <button type="submit">تسجيل</button>
-
-            <div class="login-link">
-                لديك حساب؟ <a href="{% url 'login' %}">تسجيل الدخول</a>
-            </div>
-        </form>
+    <div class="actions">
+      <!-- <input type="text" placeholder="Search Product"> -->
+        <a href="{% url 'index' %}">🏠Home</a>
+    
+      <a href="{% url 'cart' %}">🛒Cart</a>
+     
     </div>
+  </header>
+  <section class="signup-container">
+    <div class="signup-box">
+      <h2>Create Account</h2>
+      <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="Phone" required>
+        <input type="text" name="address" placeholder="Address" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+        <button type="submit">Signup</button>
+      </form>
+      <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+  </section>
 </body>
 </html>

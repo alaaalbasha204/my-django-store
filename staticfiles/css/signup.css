@@ -1,0 +1,170 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #1b4965, #5193b3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 70px;
+  color: #333;
+  direction: rtl;
+}
+
+/* Navigation Bar */
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: auto;
+  border-bottom-left-radius: 10px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #1b4965;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #5193b3;
+}
+
+/* Signup Container */
+.signup-container {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  margin-top: 1rem;
+  text-align: right;
+}
+
+/* Form Styles */
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1b4965;
+}
+
+form p {
+  margin-bottom: 1.2rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #1b4965;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(27, 73, 101, 0.2);
+}
+
+/* Submit Button */
+button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #1b4965;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #164055;
+}
+
+/* Error List */
+.errorlist {
+  background: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  color: #b30000;
+  font-size: 0.95rem;
+  list-style: none;
+}
+
+.errorlist li {
+  margin-bottom: 0.5rem;
+}
+
+/* رسالة تسجيل الدخول */
+.login-link {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.login-link a {
+  color: #1b4965;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.login-link a:hover {
+  color: #5193b3;
+}
+
+/* Django Messages */
+.messages {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
+.messages li {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+.messages li.success { background-color: #d4edda; color: #155724; }
+.messages li.error { background-color: #f8d7da; color: #721c24; }
+
+/* Responsive */
+@media (max-width: 500px) {
+  .signup-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+}

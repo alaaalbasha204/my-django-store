@@ -1,30 +1,68 @@
 {% load static %}
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/detail.css'%}">
-<div class="container">
-  <div class="product-detail-card">
-    
-    <div class="product-image">
-      <img src="{{ product.image.url }}" alt="{{ product.name }}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ product.name }} - Shopcart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">🛒 Shopcart</div>
+    <!-- <nav>
+      <a href="{% url 'index' %}">Home</a>
+      <div class="dropdown">
+        <a href="#">Categories ▾</a>
+        <div class="dropdown-content">
+          <a href="?category=clothes">Clothes</a>
+          <a href="?category=food">Food</a>
+          <a href="?category=kitchen">Kitchen</a>
+          <a href="?category=electronic">Electronic</a>
+        </div>
+      </div>
+      <a href="#">Deals</a>
+      <a href="#">What's New</a>
+      <a href="#">Delivery</a>
+    </nav> -->
+    <div class="actions">
+      <!-- <input type="text" placeholder="Search Product"> -->
+      <a href="{% url 'index' %}">🏠Home</a>
+      <a href="{% url 'signup' %}">👤Account</a>
+      <a href="{% url 'cart' %}">🛒Cart</a>
     </div>
+  </header>
 
-    <div class="product-info">
-      <h1>{{ product.name }}</h1>
-      <p class="product-price">${{ product.price }}</p>
-      {% if product.description %}
-      <p class="product-description">{{ product.description }}</p>
-      {% endif %}
+  <!-- Product Detail Section -->
+  <section class="product-detail-section">
+    <div class="product-detail-container">
+      
+      <!-- Product Image -->
+      <div class="product-detail-image">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      </div>
 
-      <form method="post" action="{% url 'index' %}">
-        {% csrf_token %}
-        <input type="hidden" name="product" value="{{ product.id }}">
-        <button type="submit" class="btn-add">إضافة 🛒</button>
-      </form>
+      <!-- Product Info -->
+      <div class="product-detail-info">
+        <h1>{{ product.name }}</h1>
+        <p class="product-price">{{ product.price }} $</p>
+        <p class="product-category"><strong>Category:</strong> {{ product.category.name }}</p>
+        <p class="product-stock"><strong>Available:</strong> {{ product.quantitystock }}</p>
+        <p class="product-description">{{ product.description }}</p>
 
-      <a href="{% url 'index' %}" class="btn-back">← Back to Products</a>
+        <!-- Add to Cart Form -->
+        <!-- <form method="post" action="">
+          {% csrf_token %}
+          <input type="hidden" name="product" value="{{ product.id }}">
+          <button class="btn add-btn" type="submit">Add to Cart 🛒</button>
+        </form> -->
+      </div>
+
     </div>
+  </section>
 
-  </div>
-</div>
-
-{% endblock %}
+</body>
+</html>

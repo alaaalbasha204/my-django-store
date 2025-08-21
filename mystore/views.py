@@ -34,7 +34,7 @@ class IndexView(View):
         """جلب المنتجات من الكاش أو من قاعدة البيانات"""
         products = cache.get('all_products')
         if products is None:
-            products = list(Product.objects.all())
+            products = (Product.objects.all())
             cache.set('all_products', products, 60)  # نخزنها 60 ثانية
         return products
     
@@ -42,7 +42,7 @@ class IndexView(View):
       cache_key = f'category_products_{category}'
       products = cache.get(cache_key)
       if products is None:
-        products = list(Product.objects.filter(category__name=category))
+        products = (Product.objects.filter(category__name=category))
         cache.set(cache_key, products, 60)  # نخزنها 60 ثانية
       return products
 
@@ -50,14 +50,25 @@ class IndexView(View):
 
         query = request.GET.get('q')
         products = self.get_all_products_cached()
+        category = request.GET.get('category') # جلب التصنيف من الرابط
 
-        # if query:
-        #     products = products.filter(
-        #         Q(name__icontains=query) | Q(description__icontains=query)
-        #     )
+        if category in self.valid_categories:
+         products = self.get_category_products_cached(category)
+        else:
+           products = self.get_all_products_cached()
+      
+        if query:
+           products = products.filter(
+            Q(name__icontains=query) | Q(description__icontains=query)
+        )
         cart = request.session.get('cart', {})
         cart_product_ids = list(map(int, cart.keys()))
+        category_pro=set()
+
+        for x in products:
+            category_pro.add(x.category)
         context = {
+            'category':category_pro,#Category.objects.all(),
             'products': products,
             'cart': cart,
             'cart_product_ids': cart_product_ids,
@@ -69,15 +80,15 @@ class IndexView(View):
         cart = request.session.get('cart', {})
         product_id = request.POST.get('product')
         remove = request.POST.get('remove') is not None
-        category = request.POST.get('category')
+        # category = request.POST.get('category')
 
-        if category:
-            if category in self.valid_categories:
-                products = self.get_category_products_cached(category)
-                return render(request, 'index.html', {'products': products})
-            else:
-                messages.error(request, "❌ هذا الصنف غير متوفر.")
-                return redirect('index')
+        # if category:
+        #     if category in self.valid_categories:
+        #         products = self.get_category_products_cached(category)
+        #         return render(request, 'index.html', {'products': products})
+        #     else:
+        #         messages.error(request, "❌ هذا الصنف غير متوفر.")
+        #         return redirect('index')
 
         try:
             product_obj = Product.objects.get(id=product_id)
@@ -229,8 +240,8 @@ def methodpay(request):
 @login_required(login_url='login')
 @csrf_protect
 def saveOrder(request):
-    if request.method != "POST":
-        return HttpResponseBadRequest("طريقة الطلب غير مسموح بها.")
+    # if request.method != "POST":
+    #     return HttpResponseBadRequest("طريقة الطلب غير مسموح بها.")
 
     user = request.user
     cart = request.session.get('cart', {})
