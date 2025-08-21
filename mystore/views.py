@@ -291,7 +291,7 @@ def saveOrder(request):
         f"🛒 طلب جديد من المستخدم: {escape(user.username)}\n\n"
         + "\n".join(order_lines) +
         f"\n\n💰 المجموع الكلي: {total_price_order} دينار"
-        +f"\n \n 🏠 العنوان :{customer.address}"
+        +f"\n \n  العنوان :{customer.address}"
         +f"\n \n  📞 الهاتف :{customer.phone}"
     )
 
