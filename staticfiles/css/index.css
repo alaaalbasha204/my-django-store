@@ -172,8 +172,8 @@ nav a {
 /* Notifications */
 .notification-wrapper {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+   top: 6rem;
+  right: 1rem; 
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -311,3 +311,16 @@ nav a {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+
+
+.category-section {
+    margin-bottom: 3rem;
+}
+
+.category-title {
+    font-size: 1.5rem;
+    color: #1b4965;
+    margin-bottom: 1rem;
+}
+

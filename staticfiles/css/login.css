@@ -1,147 +1,165 @@
-/* Reset and Base Styles */
+/* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cairo", sans-serif;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1b4965, #5193b3);
-    height: 100vh;
-    display: flex;
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1b4965;
+  display: flex;
+  align-items: center;
+}
+nav a,
+.actions a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+nav a:hover,
+.actions a:hover {
+  color: #1b4965;
+  text-decoration: none; /* منع الخط تحت الرابط حتى عند المرور */
+}
+
+nav a:visited,
+.actions a:visited {
+  text-decoration: none;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+.dropdown-content a {
+  display: block;
+  padding: 0.3rem 0.6rem;
+  color: #333;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.actions input {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+}
+
+/* Signup Section */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  background: #f5f3ef;
+  min-height: calc(100vh - 80px);
+}
+
+.signup-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.signup-box h2 {
+  color: #133c55;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.signup-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signup-box form input {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.signup-box form input:focus {
+  border-color: #1b4965;
+  box-shadow: 0 0 5px rgba(27, 73, 101, 0.3);
+}
+
+.signup-box form button {
+  background: #1b4965;
+  color: #fff;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.signup-box form button:hover {
+  background: #133c55;
+}
+
+.signup-box p {
+  text-align: center;
+  margin-top: 1rem;
+}
+.signup-box a {
+  color: #1b4965;
+  text-decoration: none;
+}
+.signup-box a:hover {
+  text-decoration: underline;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav {
+    display: none; /* تخفي القائمة العادية على الهاتف */
+  }
+
+  .actions input {
+    display: none; /* تخفي البحث في الشاشات الصغيرة */
+  }
+
+  header {
     flex-direction: column;
-    align-items: center;
-    padding-top: 60px;
-    color: #333;
-    direction: rtl;
-}
-/* Navigation Bar */
-.navbar {
-    position: fixed;
-    top: 0;
-    right: 0; /* لمحاذاة الشريط بأقصى اليمين */
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    z-index: 1000;
-    direction: rtl; /* تأكيد اتجاه RTL */
-    width: auto; /* عرض يتناسب مع العناصر */
-    border-bottom-left-radius: 10px;
-}
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 
-/* عناصر الروابط */
-.navbar a {
-    text-decoration: none;
-    color: #1b4965;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.navbar a:hover {
-    color: #5193b3;
-}
-
-/* Login Container */
-.login-container {
-    background: #fff;
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  .signup-box {
     width: 100%;
-    max-width: 400px;
-    animation: fadeIn 0.6s ease-in-out;
-    margin-top: 2rem;
-    text-align: right;
+    max-width: 90%; /* تخلي الفورم يملأ الشاشة تقريبا */
+  }
 }
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-h2 {
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    color: #1b4965;
-    text-align: center;
-}
-
-/* Form Styling */
-.form-group {
-    margin-bottom: 1.3rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #555;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.form-group input:focus {
-    border-color: #1b4965;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(27, 73, 101, 0.2);
-}
-
-/* Button */
-button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #1b4965;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-}
-
-button:hover {
-    background-color: #164055;
-}
-
-/* Error Message */
-.error {
-    background-color: #ffe6e6;
-    color: #cc0000;
-    padding: 0.8rem 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.3rem;
-    border-right: 5px solid #cc0000;
-    font-weight: 500;
-}
-
-/* Django Messages */
-ul.messages {
-    list-style: none;
-    padding: 10px;
-    margin: 0 0 10px 0;
-}
-.messages li {
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-}
-.messages li.success { background-color: #d4edda; color: #155724; }
-.messages li.error { background-color: #f8d7da; color: #721c24; }
