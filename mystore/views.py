@@ -51,10 +51,10 @@ class IndexView(View):
         query = request.GET.get('q')
         products = self.get_all_products_cached()
 
-        if query:
-            products = products.filter(
-                Q(name__icontains=query) | Q(description__icontains=query)
-            )
+        # if query:
+        #     products = products.filter(
+        #         Q(name__icontains=query) | Q(description__icontains=query)
+        #     )
         cart = request.session.get('cart', {})
         cart_product_ids = list(map(int, cart.keys()))
         context = {
