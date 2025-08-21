@@ -50,7 +50,16 @@ nav a {
   border: 1px solid #ddd;
   border-radius: 20px;
 }
+.actions button {
+  
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 18px;   /* حجم الأيقونة */
+  cursor: pointer;
 
+
+}
 
 .banner {
   display: flex;

@@ -77,18 +77,10 @@ class IndexView(View):
         return render(request, 'index.html', context)
 
     def post(self, request):
+
         cart = request.session.get('cart', {})
         product_id = request.POST.get('product')
         remove = request.POST.get('remove') is not None
-        # category = request.POST.get('category')
-
-        # if category:
-        #     if category in self.valid_categories:
-        #         products = self.get_category_products_cached(category)
-        #         return render(request, 'index.html', {'products': products})
-        #     else:
-        #         messages.error(request, "❌ هذا الصنف غير متوفر.")
-        #         return redirect('index')
 
         try:
             product_obj = Product.objects.get(id=product_id)
@@ -238,10 +230,9 @@ def methodpay(request):
 
 
 @login_required(login_url='login')
-@csrf_protect
+
 def saveOrder(request):
-    # if request.method != "POST":
-    #     return HttpResponseBadRequest("طريقة الطلب غير مسموح بها.")
+
 
     user = request.user
     cart = request.session.get('cart', {})
