@@ -24,6 +24,7 @@ class Category(models.Model):
         return self.name
 
 
+
 class Product(models.Model):
     name = models.CharField(max_length=60)
     price = models.IntegerField(default=0)

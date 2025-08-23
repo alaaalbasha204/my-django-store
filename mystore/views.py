@@ -230,7 +230,6 @@ def methodpay(request):
 
 
 @login_required(login_url='login')
-
 def saveOrder(request):
 
 
